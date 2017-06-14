@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_cors_rule">
+    <sys_cors_rule action="INSERT_OR_UPDATE">
+        <delete>false</delete>
+        <domain>http://foo.example.com</domain>
+        <exposed_headers/>
+        <get>true</get>
+        <max_age>0</max_age>
+        <name>foo.example.com</name>
+        <patch>false</patch>
+        <post>false</post>
+        <put>false</put>
+        <rest_api>8ecfdb9fcb010200080cb967634c9ce1</rest_api>
+        <sys_class_name>sys_cors_rule</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-12-11 05:10:46</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>b0b4684113d4120005d1df173244b0d2</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>foo.example.com</sys_name>
+        <sys_package display_value="Demo API" source="sn_demo_api">bebfdb9fcb010200080cb967634c9ce0</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Demo API">bebfdb9fcb010200080cb967634c9ce0</sys_scope>
+        <sys_update_name>sys_cors_rule_b0b4684113d4120005d1df173244b0d2</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2015-12-11 05:37:44</sys_updated_on>
+    </sys_cors_rule>
+</record_update>

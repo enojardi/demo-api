@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl/>
+        <http_method>GET</http_method>
+        <name>Incidents (streaming)</name>
+        <operation_script><![CDATA[/**
+ *  Sample Scripted REST Resource returning custom JSON objects with properties from Incident Glide Records
+ *  This sample uses ServiceNow JavaScript API to query incident records
+ *  and then iterates over those records building and streaming a custom JSON object that includes some properties
+ *  from the incidents
+ */
+(function runOperation(/*RESTServiceRequest*/ request, /*RESTServiceResult*/ response) {
+    var writer = response.getStreamWriter(),
+        hdrs = {},
+        table = 'incident',
+        record_limit = 100,
+        gr = new GlideRecord(table);
+
+
+    hdrs['Content-Type'] = 'application/json';
+    response.setStatus(200);
+    response.setHeaders(hdrs);
+
+    gr.setLimit(record_limit);
+    gr.query();
+
+    //  start building response object
+    writer.writeString("{\"stream results\":[");
+
+
+    //  iterate over incident records and build JSON representations to be streamed out.
+    while (gr.next()) {
+        var incidentObj = {};
+
+        incidentObj.number = gr.number + '';
+        incidentObj.short_description = gr.short_description + '';
+        writer.writeString(global.JSON.stringify(incidentObj));
+
+        if (gr.hasNext()) {
+            writer.writeString(",");
+        }
+    }
+
+    //  close the response object
+    writer.writeString("]}");
+})(request, response);]]></operation_script>
+        <operation_uri>/api/sn_demo_api/v1/example/incident_stream</operation_uri>
+        <produces>application/json</produces>
+        <produces_customized>true</produces_customized>
+        <relative_path>/incident_stream</relative_path>
+        <request_example/>
+        <requires_acl_authorization>false</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <short_description>Example of streaming incident record information via a Scripted REST API</short_description>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-12-11 15:07:43</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>a83d660d1398120005d1df173244b078</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Incidents (streaming)</sys_name>
+        <sys_package display_value="Demo API" source="sn_demo_api">bebfdb9fcb010200080cb967634c9ce0</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Demo API">bebfdb9fcb010200080cb967634c9ce0</sys_scope>
+        <sys_update_name>sys_ws_operation_a83d660d1398120005d1df173244b078</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2015-12-11 15:17:33</sys_updated_on>
+        <web_service_definition display_value="Sample REST API">8ecfdb9fcb010200080cb967634c9ce1</web_service_definition>
+        <web_service_version display_value="v1">f9da3d27cb010200080cb967634c9c52</web_service_version>
+    </sys_ws_operation>
+</record_update>
